@@ -2,6 +2,7 @@ import { max, sum } from "lodash"
 import "./style.css"
 const userInput = document.querySelector("#users-Input")
 const submitBtn = document.querySelector("#submit")
+const iconImg = document.querySelector("#icon")
 
 console.log(submitBtn)
 submitBtn.addEventListener("click", getData)
@@ -14,13 +15,14 @@ async function getData() {
   )
   const weatherData = await response.json()
 
-  const weatherDescription = await weatherData.weather[0].description
-  const weatherMain = await weatherData.weather[0].main
+  const weatherDescription = weatherData.weather[0].description
+  const weatherMain = weatherData.weather[0].main
+  const weatherIcon = weatherData.weather[0].icon
 
-  const temperature = (await weatherData.main.temp).toFixed()
-  const feelsLike = (await weatherData.main.feels_like).toFixed()
-  const minTemperature = (await weatherData.main.temp_min).toFixed()
-  const maxTemperature = (await weatherData.main.temp_max).toFixed()
+  const temperature = weatherData.main.temp.toFixed()
+  const feelsLike = weatherData.main.feels_like.toFixed()
+  const minTemperature = weatherData.main.temp_min.toFixed()
+  const maxTemperature = weatherData.main.temp_max.toFixed()
 
   console.log(weatherData)
   console.log(temperature)
