@@ -7,8 +7,37 @@
     <script defer src="main.js"></script>
   </head>
   <body>
-    <input type="text" name="" id="users-Input" />
-    <button id="submit">Submit</button>
-    <img src="" id="icon" alt="" />
+    <div class="main">
+      <div class="search-container">
+        <input id="users-Input" placeholder="Search Location..." />
+        <button id="submit">Search</button>
+      </div>
+
+      <div class="display">
+        <img src="" id="icon" alt="weather_icon" />
+        <div class="info-container">
+          <div class="main-info">
+            <p class="temperature"></p>
+            <p class="description"></p>
+            <p class="city"></p>
+            <p class="date"></p>
+          </div>
+          <div class="sub-info">
+            <div class="sub-infos-container">
+              <h5>Highest</h5>
+              <p class="max-temp"></p>
+            </div>
+            <div class="sub-infos-container">
+              <h5>Lowest</h5>
+              <p class="min-temp"></p>
+            </div>
+            <div class="sub-infos-container">
+              <h5>Feels like</h5>
+              <p class="feels-like"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
