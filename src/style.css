@@ -48,6 +48,7 @@ body {
 }
 .info-container p {
   margin: 0;
+  padding: 0;
 }
 .sub-infos-container {
   margin-top: 20px;
@@ -74,6 +75,7 @@ h5 {
 }
 .city {
   font-size: 2rem;
+  font-weight: bold;
 }
 .description {
   font-size: 3rem;
@@ -82,7 +84,7 @@ h5 {
   font-size: 1.5rem;
 }
 input {
-  margin: 20px;
+  margin-bottom: 20px;
   height: 30px;
   width: 260px;
   border: 2px solid white;
@@ -109,4 +111,19 @@ button:hover {
 }
 .validate-info {
   display: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-family: "Kanit", sans-serif;
+}
+footer a {
+  text-decoration: none;
+  color: black;
+}
+footer a:hover {
+  color: #cfeefa;
 }

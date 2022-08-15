@@ -17,6 +17,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "What's the Weather?",
       template: "template.html",
+      favicon: "./src/images/sun.png",
     }),
   ],
   module: {
