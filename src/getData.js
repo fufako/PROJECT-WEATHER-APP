@@ -1,5 +1,6 @@
-import { format } from "date-fns"
+import { format, addHours } from "date-fns"
 import { showErrorMsg, hideErrorMsg } from "./UI"
+import { formatInTimeZone } from "date-fns-tz"
 
 export async function getData(defaultCity) {
   const userInput = document.querySelector("#users-Input")
@@ -25,6 +26,11 @@ export async function getData(defaultCity) {
 }
 export function getTodayDate() {
   return format(new Date(), "EEEE, MMMM do")
+}
+export function getTimeOfDay(weatherData) {
+  const hours = weatherData.timezone / 60 / 60 - 2
+  const timeOfDay = format(addHours(new Date(), hours), "p")
+  return timeOfDay
 }
 function validateInput(userInput) {
   const stringToTest = userInput.value

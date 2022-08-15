@@ -1,5 +1,7 @@
 import Icon from "./images/icon1.png"
-import { getData, getTodayDate } from "./getData"
+import { getData, getTodayDate, getTimeOfDay } from "./getData"
+
+import { zonedTimeToUtc } from "date-fns-tz"
 
 //Import all the icons
 function importAll(r) {
@@ -22,7 +24,7 @@ export async function renderWeatherInfo(defaultCity) {
   } else {
     weatherData = await getData(defaultCity)
   }
-
+  console.log(weatherData)
   const iconImg = document.querySelector("#icon")
 
   const todaysDate = getTodayDate()
@@ -30,6 +32,7 @@ export async function renderWeatherInfo(defaultCity) {
   const weatherMain = weatherData.weather[0].main
   const weatherIcon = weatherData.weather[0].icon
   const weatherCityName = weatherData.name
+  const timeOfDay = getTimeOfDay(weatherData)
 
   const weatherTemperature = weatherData.main.temp.toFixed()
   const weatherFeelsLike = weatherData.main.feels_like.toFixed()
@@ -40,6 +43,7 @@ export async function renderWeatherInfo(defaultCity) {
   const description = document.querySelector(".description")
   const city = document.querySelector(".city")
   const temperature = document.querySelector(".temperature")
+  const time = document.querySelector(".time")
 
   const maxTemp = document.querySelector(".max-temp")
   const minTemp = document.querySelector(".min-temp")
@@ -49,6 +53,7 @@ export async function renderWeatherInfo(defaultCity) {
   city.innerHTML = weatherCityName
   temperature.innerHTML = weatherTemperature + " °C"
   date.innerHTML = todaysDate
+  time.innerHTML = timeOfDay
   maxTemp.innerHTML = weatherMaxTemperature + " °C"
   minTemp.innerHTML = weatherMinTemperature + " °C"
   feelsLike.innerHTML = weatherFeelsLike + " °C"
