@@ -14,6 +14,17 @@ body {
   background-position: center;
   min-height: 100vh;
 }
+.main-night {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: url("./images/bgn.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
 .search-container {
   display: flex;
   flex-direction: column;

@@ -1,5 +1,7 @@
-import Icon from "./images/icon1.png"
+import DayBG from "./images/bg.jpg"
+import NightBG from "./images/bgn.jpg"
 import { getData, getTodayDate, getTimeOfDay } from "./getData"
+import { format } from "date-fns"
 
 import { zonedTimeToUtc } from "date-fns-tz"
 
@@ -32,7 +34,10 @@ export async function renderWeatherInfo(defaultCity) {
   const weatherMain = weatherData.weather[0].main
   const weatherIcon = weatherData.weather[0].icon
   const weatherCityName = weatherData.name
-  const timeOfDay = getTimeOfDay(weatherData)
+  const timeOfDay = format(getTimeOfDay(weatherData), "p")
+  const hours = format(getTimeOfDay(weatherData), "HH")
+
+  checkIfNightOrDay(hours)
 
   const weatherTemperature = weatherData.main.temp.toFixed()
   const weatherFeelsLike = weatherData.main.feels_like.toFixed()
@@ -71,4 +76,14 @@ export function showErrorMsg() {
 }
 export function hideErrorMsg() {
   validateInfo.style.display = "none"
+}
+function checkIfNightOrDay(hours) {
+  const mainContainer = document.querySelector("#main")
+  const isDayTime = hours > 6 && hours < 20
+  console.log(isDayTime)
+  if (isDayTime) {
+    mainContainer.className = "main"
+  } else {
+    mainContainer.className = "main-night"
+  }
 }

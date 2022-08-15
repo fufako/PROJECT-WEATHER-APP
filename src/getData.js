@@ -29,7 +29,7 @@ export function getTodayDate() {
 }
 export function getTimeOfDay(weatherData) {
   const hours = weatherData.timezone / 60 / 60 - 2
-  const timeOfDay = format(addHours(new Date(), hours), "p")
+  const timeOfDay = addHours(new Date(), hours)
   return timeOfDay
 }
 function validateInput(userInput) {
