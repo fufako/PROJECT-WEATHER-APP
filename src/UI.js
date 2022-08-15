@@ -15,19 +15,21 @@ const icons = importAll(
 )
 
 export async function renderWeatherInfo(defaultCity) {
-  const weatherData = await getData()
+  let weatherData = ""
+
+  if (!defaultCity) {
+    weatherData = await getData()
+  } else {
+    weatherData = await getData(defaultCity)
+  }
 
   const iconImg = document.querySelector("#icon")
 
-  console.log(getTodayDate())
-
   const todaysDate = getTodayDate()
-  console.log(weatherData)
   const weatherDescription = weatherData.weather[0].description
   const weatherMain = weatherData.weather[0].main
   const weatherIcon = weatherData.weather[0].icon
   const weatherCityName = weatherData.name
-  console.log(weatherCityName)
 
   const weatherTemperature = weatherData.main.temp.toFixed()
   const weatherFeelsLike = weatherData.main.feels_like.toFixed()
@@ -51,12 +53,17 @@ export async function renderWeatherInfo(defaultCity) {
   minTemp.innerHTML = weatherMinTemperature + " °C"
   feelsLike.innerHTML = weatherFeelsLike + " °C"
   iconImg.src = icons[weatherIcon + ".png"]
-  // iconImg.src = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
-  console.log(weatherIcon)
 }
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
-
-console.log(icons["01d.png"])
+const validateInfo = document.querySelector(".validate-info")
+export function showErrorMsg() {
+  validateInfo.style.display = "block"
+  validateInfo.innerHTML = `Location not found.<br>
+    Search must be in the form of "City", "City, State" or "City, Country".`
+}
+export function hideErrorMsg() {
+  validateInfo.style.display = "none"
+}

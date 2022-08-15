@@ -1,12 +1,25 @@
 import { format } from "date-fns"
+import { showErrorMsg, hideErrorMsg } from "./UI"
 
-export async function getData() {
+export async function getData(defaultCity) {
   const userInput = document.querySelector("#users-Input")
-  validateInput(userInput)
-  const response = await fetch(
-    `http://api.openweathermap.org/data/2.5/weather?q=${userInput.value}&APPID=b36c6d2968b56b6cac14c9e3a395fb53&units=metric`,
-    { mode: "cors" }
-  )
+  let response = ""
+  if (!defaultCity) {
+    validateInput(userInput)
+    response = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${userInput.value}&APPID=b36c6d2968b56b6cac14c9e3a395fb53&units=metric`,
+      { mode: "cors" }
+    )
+    if (response.status === 404) {
+      showErrorMsg()
+      return
+    }
+  } else {
+    response = await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=Sydney&APPID=b36c6d2968b56b6cac14c9e3a395fb53&units=metric`,
+      { mode: "cors" }
+    )
+  }
   const weatherData = await response.json()
   return weatherData
 }
@@ -14,12 +27,18 @@ export function getTodayDate() {
   return format(new Date(), "EEEE, MMMM do")
 }
 function validateInput(userInput) {
-  const validateInfo = document.querySelector(".validate-info")
-  if (!/^[a-zA-Z]*$/.test(userInput.value) || userInput.value === "") {
-    validateInfo.style.display = "block"
-    validateInfo.innerHTML = `Location not found.<br>
-    Search must be in the form of "City", "City, State" or "City, Country".`
+  const stringToTest = userInput.value
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+  if (
+    !/^.*(?=.{8,})(?=.*[a-zA-Z\\u0080-\\uFFFF])(?=.*\d).*$/.test(
+      stringToTest.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+    ) == false ||
+    stringToTest === ""
+  ) {
+    showErrorMsg()
+    return console.error()
   } else {
-    validateInfo.style.display = "none"
+    hideErrorMsg()
   }
 }
