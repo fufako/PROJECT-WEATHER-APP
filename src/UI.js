@@ -1,8 +1,24 @@
+import Icon from "./images/icon1.png"
 import { getData, getTodayDate } from "./getData"
-export async function renderWeatherInfo() {
+
+//Import all the icons
+function importAll(r) {
+  let icons = {}
+  r.keys().map((item, index) => {
+    icons[item.replace("./", "")] = r(item)
+  })
+  return icons
+}
+
+const icons = importAll(
+  require.context("./images/Icons", false, /\.(png|jpe?g|svg)$/)
+)
+
+export async function renderWeatherInfo(defaultCity) {
+  const weatherData = await getData()
+
   const iconImg = document.querySelector("#icon")
 
-  const weatherData = await getData()
   console.log(getTodayDate())
 
   const todaysDate = getTodayDate()
@@ -34,9 +50,13 @@ export async function renderWeatherInfo() {
   maxTemp.innerHTML = weatherMaxTemperature + " °C"
   minTemp.innerHTML = weatherMinTemperature + " °C"
   feelsLike.innerHTML = weatherFeelsLike + " °C"
-  iconImg.src = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+  iconImg.src = icons[weatherIcon + ".png"]
+  // iconImg.src = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
+  console.log(weatherIcon)
 }
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+console.log(icons["01d.png"])
