@@ -19,7 +19,7 @@ const icons = importAll(
 )
 
 export async function renderWeatherInfo(defaultCity) {
-  let weatherData = ""
+  let weatherData = {}
 
   if (!defaultCity) {
     weatherData = await getData()
@@ -83,7 +83,9 @@ function checkIfNightOrDay(hours) {
   console.log(isDayTime)
   if (isDayTime) {
     mainContainer.className = "main"
+    mainContainer.style.backgroundImage = DayBG
   } else {
     mainContainer.className = "main-night"
+    mainContainer.style.backgroundImage = NightBG
   }
 }

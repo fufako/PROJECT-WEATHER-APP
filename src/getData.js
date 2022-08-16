@@ -5,22 +5,19 @@ import { formatInTimeZone } from "date-fns-tz"
 export async function getData(defaultCity) {
   const userInput = document.querySelector("#users-Input")
   let response = ""
-  if (!defaultCity) {
+
+  response = await fetch(
+    `http://api.openweathermap.org/data/2.5/weather?q=${
+      userInput?.value || "Sydney"
+      // userInput?.value ? userInput.value : "Sydney"
+      // userInput && userInput.value ? userInput.value : "Sydney"
+    }&APPID=b36c6d2968b56b6cac14c9e3a395fb53&units=metric`,
+    { mode: "cors" }
+  )
+  if (userInput.value) {
     validateInput(userInput)
-    response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${userInput.value}&APPID=b36c6d2968b56b6cac14c9e3a395fb53&units=metric`,
-      { mode: "cors" }
-    )
-    if (response.status === 404) {
-      showErrorMsg()
-      return
-    }
-  } else {
-    response = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=Sydney&APPID=b36c6d2968b56b6cac14c9e3a395fb53&units=metric`,
-      { mode: "cors" }
-    )
   }
+
   const weatherData = await response.json()
   return weatherData
 }
@@ -42,9 +39,11 @@ function validateInput(userInput) {
     ) == false ||
     stringToTest === ""
   ) {
+    console.log("errorMSG")
     showErrorMsg()
     return console.error()
   } else {
+    console.log("errorMSG")
     hideErrorMsg()
   }
 }
