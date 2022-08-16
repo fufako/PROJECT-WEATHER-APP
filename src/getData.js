@@ -39,11 +39,9 @@ function validateInput(userInput) {
     ) == false ||
     stringToTest === ""
   ) {
-    console.log("errorMSG")
     showErrorMsg()
     return console.error()
   } else {
-    console.log("errorMSG")
     hideErrorMsg()
   }
 }

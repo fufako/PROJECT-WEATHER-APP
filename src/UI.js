@@ -26,7 +26,6 @@ export async function renderWeatherInfo(defaultCity) {
   } else {
     weatherData = await getData(defaultCity)
   }
-  console.log(weatherData)
   const iconImg = document.querySelector("#icon")
 
   const todaysDate = getTodayDate()
@@ -80,12 +79,9 @@ export function hideErrorMsg() {
 function checkIfNightOrDay(hours) {
   const mainContainer = document.querySelector("#main")
   const isDayTime = hours > 6 && hours < 20
-  console.log(isDayTime)
   if (isDayTime) {
     mainContainer.className = "main"
-    mainContainer.style.backgroundImage = DayBG
   } else {
     mainContainer.className = "main-night"
-    mainContainer.style.backgroundImage = NightBG
   }
 }
