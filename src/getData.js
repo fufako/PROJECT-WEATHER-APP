@@ -11,7 +11,7 @@ export async function getData(defaultCity) {
       userInput?.value || "Sydney"
       // userInput?.value ? userInput.value : "Sydney"
       // userInput && userInput.value ? userInput.value : "Sydney"
-    }&APPID=b36c6d2968b56b6cac14c9e3a395fb53&units=metric`,
+    }${process.env.WEATHER_API}`,
     { mode: "cors" }
   )
   if (userInput.value) {
@@ -21,6 +21,7 @@ export async function getData(defaultCity) {
   const weatherData = await response.json()
   return weatherData
 }
+
 export function getTodayDate() {
   return format(new Date(), "EEEE, MMMM do")
 }
